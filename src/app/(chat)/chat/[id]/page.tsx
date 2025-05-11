@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter,useParams } from "next/navigation";
 import {app} from "../../../../config/firebaseConfig";
-import {getDatabase,ref,set,push,get,onValue} from "firebase/database"
+import {getDatabase,ref,set,push,get,onValue, onDisconnect} from "firebase/database"
 import { useAuth } from "@/context/AuthContext"; 
 
 const Page = () => {
@@ -16,10 +16,21 @@ const Page = () => {
 
   const [messageText,setMessage] = useState('');
 
+  const [online,setOnline] = useState('');
+
   const fetchData=async(roomId:string)=>{
     try {
         const db = getDatabase(app);
         const dbRef = ref(db,`chats/${roomId}/messages`);
+
+        const allStatusRef = ref(db, '/status');
+
+// onValue(allStatusRef, (snapshot) => {
+//   const statuses = snapshot.val();
+//   console.log(statuses);
+  
+//   setOnline(statuses[params.id]?.state)
+// });
 
         const unsubscribe :any = onValue(dbRef,(snapshot)=>{
             if(snapshot.exists()){
@@ -34,9 +45,34 @@ const Page = () => {
     }
   }
 
+
+  const trackUserPresence = (userId:string) => {
+  const db = getDatabase(app);
+  const userStatusRef = ref(db, `/status/${userId}`);
+  const connectedRef = ref(db, '.info/connected');
+
+  onValue(connectedRef, (snapshot) => {
+    if (snapshot.val() === false) {
+      return;
+    }
+
+    // When connected: set presence to online
+    onDisconnect(userStatusRef).set({
+      state: 'offline',
+      lastChanged: Date.now()
+    }).then(() => {
+      set(userStatusRef, {
+        state: 'online',
+        lastChanged: Date.now()
+      });
+    });
+  });
+};
+
   useEffect(()=>{
     fetchData('Bro')
-    },[])
+    // trackUserPresence(params.id)
+    },[params.id])
 
 
   useEffect(()=>{
@@ -76,7 +112,9 @@ const Page = () => {
 
       <main className="w-[90%] lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg h-[88vh]">
         <section className=" h-full relative w-full">
-
+        {/* <div className="p-2">
+          {online === 'online' ? <span className="text-green-500">Online</span> : <span className="text-red-500">Offline</span>}
+        </div> */}
        <div className="p-2 m-3 h-[75vh] overflow-auto no-scrollbar">
             {array.map((i:any,index:number)=>
             <div key={index} className={`${i.userId === params.id ? "justify-start " : "justify-end "} my-4 flex`}>
