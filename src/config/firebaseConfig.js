@@ -5,6 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCFWfkAdbAH2d8DtQORgZsOJ6itqsQDdqc",
   authDomain: "pravi-fabrics.firebaseapp.com",
   projectId: "pravi-fabrics",
+  databaseURL:"https://pravi-fabrics-default-rtdb.asia-southeast1.firebasedatabase.app/",
   storageBucket: "pravi-fabrics.firebasestorage.app",
   messagingSenderId: "986820495145",
   appId: "1:986820495145:web:d9a2716debd7b497971938",
