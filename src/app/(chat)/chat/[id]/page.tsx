@@ -5,12 +5,22 @@ import { useRouter,useParams } from "next/navigation";
 import {app} from "../../../../config/firebaseConfig";
 import {getDatabase,ref,set,push,get,onValue, onDisconnect} from "firebase/database"
 import { useAuth } from "@/context/AuthContext"; 
+import Link from "next/link";
 
 const Page = () => {
   const router = useRouter();
   const {token,decodedToken}:any = useAuth();
   const scrollRef:any = useRef(null);
   const params:any = useParams();
+  const [friendName,setFriedName] = useState('');
+
+  useEffect(()=>{
+    if(typeof window !== "undefined"){
+      const friend:string = sessionStorage.getItem('friendName') || "";
+      setFriedName(friend);
+    }
+  },[])
+  
 
   const [array,setArray]=useState<any>([])
 
@@ -105,15 +115,20 @@ const Page = () => {
   
 
   return (
-    <div className="bg-slate-100 flex justify-center flex-col items-start h-screen">
+    <div className="bg-slate-100 flex justify-center flex-col py-5 items-start min-h-screen">
       <button className="p-3" onClick={() => router.back()}>
         {"< Back"}
       </button>
 
-      <main className="w-[90%] lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg h-[88vh]">
+      <main className="w-[90%] px-3 relative lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg h-16 mb-4">
+        <span className="absolute -translate-y-[50%] top-[50%] font-semibold">{friendName}</span>
+      </main>
+
+      <main className="w-[90%] lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg ">
         <section className=" h-full relative w-full">
         {/* <div className="p-2">
-          {online === 'online' ? <span className="text-green-500">Online</span> : <span className="text-red-500">Offline</span>}
+  
+          {online === 'online' ? <span className="text-green-500"> - Online</span> : <span className="text-red-500">Offline</span>}
         </div> */}
        <div className="p-2 m-3 h-[75vh] overflow-auto no-scrollbar">
             {array.map((i:any,index:number)=>
@@ -135,7 +150,7 @@ const Page = () => {
 
 
 
-          <div  className="absolute border border-slate-700 -translate-x-[50%] overflow-hidden left-[50%] shadow-lg rounded-full w-[95%] bottom-6 mx-auto">
+          <div  className="absolute border border-slate-700 -translate-x-[50%] overflow-hidden left-[50%] shadow-lg rounded-full w-[95%] bottom-10 mx-auto">
             <div className="flex items-center justify-between bg-white">
               <input onKeyDown={(e)=>{if(e.key === 'Enter'){sendMessage('Bro')}}} placeholder="Message..." value={messageText} onChange={(e)=>setMessage(e.target.value)} autoFocus className="placeholder:text-blue-300 border caret-blue-500 rounded-tl-full rounded-bl-full pl-5 py-3 focus:outline-none w-[90%] outlin-none border-none" />
               <svg onClick={()=>sendMessage('Bro')}
@@ -153,7 +168,11 @@ const Page = () => {
                 />
               </svg>
             </div>
+
           </div>
+            <Link href={`/game/${params.id}`} className="text-blue-500 text-sm hover:text-blue-600 absolute -translate-x-[50%] overflow-hidden left-[50%] bottom-2">Start a game</Link>
+
+
         </section>
       </main>
     </div>
