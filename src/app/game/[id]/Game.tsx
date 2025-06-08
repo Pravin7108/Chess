@@ -122,7 +122,7 @@ useEffect(() => {
 
     const unsub = onValue(oppRef, (snap) => {
       const data = snap.val();
-      console.log(data,"online");
+
       
       setOpponentOnline(data?.state === "online");
       setLastSeen(data?.last_changed);
