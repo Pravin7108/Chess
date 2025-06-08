@@ -33,12 +33,12 @@ export default function Game() {
   const params: any = useParams();
   const [playerColor, setPlayerColor] = useState<"white" | "black" | any>(null);
 
-  // useEffect(()=>{
-  //   if(typeof window !== 'undefined'){
-  //    const color:any =  sessionStorage.getItem('color') || "black";
-  //    setPlayerColor(color)
-  //   }
-  // },[])
+  useEffect(()=>{
+     if(typeof window !== 'undefined'){
+      const color:any =  sessionStorage.getItem('color') || "black";
+      setPlayerColor(color)
+    }
+ },[])
 
   const [chess, setChess] = useState(new Chess());
   const [movements, setMovements] = useState<any>([]);
