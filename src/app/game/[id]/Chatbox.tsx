@@ -94,7 +94,7 @@ const dateConstructor = lastSeen && new Date(lastSeen).toLocaleDateString('en-US
   
 
   return (
-    <div className="bg-slate-100">
+    <div className="">
       <main className="w-[90%] px-3 relative lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg h-16 mb-4">
         <span className=" h-16 font-semibold flex flex-col mt-3">
           <span>

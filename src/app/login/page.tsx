@@ -22,14 +22,19 @@ const Login=()=>{
     }
     
     return (
-        <main className="flex justify-center items-center flex-col gap-5 h-screen">
-            <div>
+        <section className="relative min-h-screen">
+    <div className="absolute inset-0 bg-[url('/king.jpg')] bg-cover bg-no-repeat bg-center z-10" />
+        <div className="absolute inset-0 bg-[#242424] bg-opacity-75 z-10" />
+
+        <main className="flex justify-center items-center flex-col gap-5 z-20 min-h-screen">
+            <div className="z-20 text-white">
                 Log in to play with your mate
             </div>
-            <button onClick={Signup} className="shadow rounded-full px-4 duration-200 py-2 hover:text-white hover:bg-slate-700 border border-slate-600">
+            <button onClick={Signup} className="z-20 text-white shadow rounded-full px-4 duration-200 py-2 hover:text-white hover:bg-slate-700 border border-slate-600">
                 Signin with Google
             </button>
         </main>
+        </section>
     )
 }
 

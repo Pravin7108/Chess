@@ -90,12 +90,14 @@ const Page = () => {
   
 
   return (
-    <div className="bg-slate-100 flex justify-center flex-col py-5 items-start h-screen">
-      <button className="p-3" onClick={() => router.back()}>
+    <div className="bg-slate-100 flex justify-center flex-col py-5 items-start h-screen relative">
+      <div className="absolute inset-0 bg-[url('/king.jpg')] bg-no-repeat bg-center bg-cover z-10" />
+     <div className="absolute inset-0 bg-[#242424] bg-opacity-75 z-10" />
+      <button className="p-3 z-20 text-white" onClick={() => router.back()}>
         {"< Back"}
       </button>
 
-      <main className="w-[90%] px-3 relative lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg h-16 mb-4">
+      <main className="w-[90%] z-20 px-3 relative lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg h-16 mb-4">
         <span className="items-center h-16 font-semibold flex justify-between">
           <span>
           {friendName}
@@ -106,7 +108,7 @@ const Page = () => {
 
       </main>
 
-      <main className="w-[90%] lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg ">
+      <main className="w-[90%] z-20 lg:w-[50%] bg-purple-100 mx-auto overflow-hidden border border-slate-700 rounded-lg ">
         <section className=" h-full relative w-full">
 
        <div className="p-2 pb-20 m-3 h-[75vh] overflow-auto no-scrollbar">

@@ -46,7 +46,7 @@ const FriendList = () => {
   return (
     <>
     <span className="text-indigo-500 font-semibold text-left">Choose your opponent</span>
-    {friendList ? <main className="w-[600px] rounded-2xl p-4 border border-slate-200 shadow-lg ">
+    {friendList ? <main className="w-[380px] lg:w-[600px] rounded-2xl p-4 border border-slate-200 shadow-lg ">
       <div className="max-h-[500px] overflow-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-5 duration-200">
 
           {friendList?.users
@@ -56,7 +56,7 @@ const FriendList = () => {
                 <Image src={i.photoURL} alt="dp" width={50} height={50}
                 className="rounded-full border-2 border-slate-400"
                 />{" "}
-                <span className="font-semibold text-lg w-fit line-clamp-1 group-hover:text-white">
+                <span className="font-semibold text-white text-lg w-fit line-clamp-1 group-hover:text-white">
                 {i?.displayName}
                 </span>
               </Link>

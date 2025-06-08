@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import React, {  useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { signOut, getAuth } from "firebase/auth";
 import { app } from "../config/firebaseConfig";
@@ -34,9 +34,14 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen flex justify-center items-center flex-col gap-10">
+      <main className="min-h-screen relative flex justify-center items-center flex-col gap-10">
+
+            <div className="absolute inset-0 bg-[url('/king.jpg')] bg-cover bg-no-repeat bg-center z-10" />
+        <div className="absolute inset-0 bg-[#242424] bg-opacity-75 z-10" />
+
+
         {decodedToken && (
-          <main className="flex flex-col items-center gap-3">
+          <main className="flex flex-col items-center gap-3 z-20">
             <div className="rounded-full border size-32 overflow-hidden group">
               <Image
                 src={decodedToken?.picture}
@@ -46,7 +51,7 @@ export default function Home() {
                 height={100}
               />
             </div>
-            <span className="text-slate-500 font-semibold">Welcome back , {decodedToken?.name} !</span>
+            <span className="text-white font-semibold">Welcome back , {decodedToken?.name} !</span>
 
             <div className="flex items-center gap-10 my-6">
         <Link
@@ -59,7 +64,7 @@ export default function Home() {
 
 <Dialog>
            <DialogTrigger asChild>
-        <button className="hover:bg-slate-100 duration-200 rounded-md py-2 px-2">Join a game</button>
+        <button className="hover:bg-slate-100 text-white hover:text-slate-700 duration-200 rounded-md py-2 px-2">Join a game</button>
         </DialogTrigger>
 
          <DialogContent className="sm:max-w-[425px]">
@@ -87,20 +92,12 @@ export default function Home() {
 
 
 <FriendList/>
-
-
-        {/* <Link
-          href={`/chat/${decodedToken?.user_id === "6HIjX2VRyxOl3xAzutWwtrMc7y82" ? "93l8xQdLzDhtVLA5JbVaJpJxFvx1" : decodedToken?.user_id === "93l8xQdLzDhtVLA5JbVaJpJxFvx1" ? "6HIjX2VRyxOl3xAzutWwtrMc7y82" : "" }`}
-          className="bg-[#000] hover:bg-slate-600 text-white px-3 py-2 rounded-lg"
-          >
-          Chat with {decodedToken?.user_id === "6HIjX2VRyxOl3xAzutWwtrMc7y82" ? "Pravin Murugesan" : "Pravin Shankar" }
-        </Link> */}
           </main>
         )}
 
         {(typeof window !== "undefined" && !decodedToken) && (
-          <div className="flex flex-col items-centet gap-8">
-            <main>
+          <div className="flex flex-col items-centet gap-8 z-20">
+            <main className="text-white">
               To start a new game , Log in here !
             </main>
           <Link href={"/login"} className="bg-slate-300 text-center rounded px-3 py-1">
@@ -116,7 +113,7 @@ export default function Home() {
               Cookies.remove("gameToken");
               window.location.reload();
             }}
-            className="bg-red-500 text-white hover:bg-red-600 px-3 py-1 rounded"
+            className="bg-red-500 text-white z-20 hover:bg-red-600 px-3 py-1 rounded"
           >
             Log out
           </button>
